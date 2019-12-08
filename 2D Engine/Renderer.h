@@ -9,22 +9,25 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-class IRenderer {
-
-};
-class Renderer : public IRenderer
+namespace Engine
 {
-public:
-	ID2D1SolidColorBrush* pBrush = NULL;
-	ID2D1Factory* pFactory = NULL;
-	ID2D1HwndRenderTarget* pRenderTarget = NULL;
-	D2D1_ELLIPSE ellipse;
-	Renderer();
-	~Renderer();
-	void RenderNow(HWND hWnd);
-private:
+	class IRenderer
+	{
 
-};
+	};
+	class Renderer : public IRenderer
+	{
+	public:
+		ID2D1SolidColorBrush* pBrush = NULL;
+		ID2D1Factory* pFactory = NULL;
+		ID2D1HwndRenderTarget* pRenderTarget = NULL;
+		D2D1_ELLIPSE ellipse;
+		Renderer();
+		~Renderer();
+		HRESULT RenderNow(HWND hWnd);
+	private:
 
+	};
 
+}
 #endif // !RENDERER_H

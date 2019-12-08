@@ -1,23 +1,38 @@
 #include "Object.h"
-
-GameObject::GameObject()
+namespace Engine
 {
-}
+	Renderer Game::rRender;
+	GameObject* Game::GameObjects[1000];
+	int Game::nObjectAmount = 1000;
 
-GameObject::~GameObject()
-{
-}
+	GameObject::GameObject()
+	{
+		for (int i = 0; i < Game::nObjectAmount; i++)
+		{
+			if (Game::GameObjects[i] == nullptr)
+			{
+				Game::GameObjects[i] = this;
+				break;
+			}
+		}
 
-void GameObject::PrivateUpdate()
-{
-}
+	}
 
-Component::Component()
-{
-}
+	GameObject::~GameObject()
+	{
+	}
 
-Component::~Component()
-{
-}
+	void GameObject::PrivateUpdate()
+	{
+	}
 
-GameObject* GameObject::GameObjects;
+	Component::Component()
+	{
+	}
+
+	Component::~Component()
+	{
+	}
+
+
+}

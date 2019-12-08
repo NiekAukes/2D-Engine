@@ -3,17 +3,31 @@
 class Vector2
 {
 public:
-	Vector2();
-	~Vector2();
+	Vector2()
+	{
+
+	}
+	~Vector2()
+	{
+
+	}
 
 private:
 
 };
 
-Vector2::Vector2()
+class Vector3
 {
-}
+public:
+	Vector3()
+	{
 
-Vector2::~Vector2()
-{
-}
+	}
+	~Vector3()
+	{
+
+	}
+
+private:
+
+};

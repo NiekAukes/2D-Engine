@@ -3,6 +3,10 @@
 
 #include "framework.h"
 #include "2D Engine.h"
+using namespace Engine;
+#pragma region WinInit
+
+
 
 #define MAX_LOADSTRING 100
 
@@ -52,11 +56,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+
+
     return (int) msg.wParam;
 }
 
 
-
+std::thread* GameThread = nullptr;
 //
 //  FUNCTION: MyRegisterClass()
 //
@@ -104,9 +110,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
-
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+   GameThread = new std::thread(GameBegin, hWnd);
 
    return TRUE;
 }
@@ -122,7 +128,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-Renderer rWindowRender;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -131,13 +136,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		HRESULT hr = D2D1CreateFactory(
 			D2D1_FACTORY_TYPE::D2D1_FACTORY_TYPE_MULTI_THREADED,
-			&rWindowRender.pFactory);
-
+			&Game::rRender.pFactory);
 		if (FAILED(hr)) {
 			return -1;
 		}
+		
+		Game::rRender.RenderNow(hWnd);
 
-		rWindowRender.RenderNow(hWnd);
 	}
     case WM_COMMAND:
 	{
@@ -158,18 +163,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
 	{
-		rWindowRender.RenderNow(hWnd);
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
-		rWindowRender.pRenderTarget->BeginDraw();
+		HRESULT hr = Game::rRender.RenderNow(hWnd);
+		if (SUCCEEDED(hr))
+		{
+			PAINTSTRUCT ps;
+			HDC hdc = BeginPaint(hWnd, &ps);
+			Game::rRender.pRenderTarget->BeginDraw();
 
-		rWindowRender.pRenderTarget->Clear();
-		const D2D1_RECT_F rc{200, 200, 300, 300};
-		
-		rWindowRender.pRenderTarget->FillRectangle(rc, rWindowRender.pBrush);
-		rWindowRender.pRenderTarget->EndDraw();
-		// TODO: Add any drawing code that uses hdc here...
-		EndPaint(hWnd, &ps);
+			Game::rRender.pRenderTarget->Clear();
+
+			//clears the screen and draws circle
+			Game::rRender.pRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::SkyBlue));
+			Game::rRender.pRenderTarget->FillEllipse(Game::rRender.ellipse, Game::rRender.pBrush);
+			
+			
+			D2D1_ELLIPSE ell = D2D1::Ellipse({ 300, 300 }, 100, 100);
+			Engine::Game::rRender.pRenderTarget->DrawEllipse(ell, Game::rRender.pBrush);
+			//start loop and drawing
+			for (int i = 0; i < Game::nObjectAmount; i++)
+			{
+				if (Game::GameObjects[i] != nullptr)
+				{
+					Game::GameObjects[i]->Loop();
+					Game::GameObjects[i]->Render(hWnd, hdc);
+				}
+			}
+
+			Game::rRender.pRenderTarget->EndDraw();
+			// TODO: Add any drawing code that uses hdc here...
+			EndPaint(hWnd, &ps);
+		}
 	}
         break;
     case WM_DESTROY:
@@ -199,4 +222,36 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
+}
+#pragma endregion
+
+// Globals:
+
+void Engine::GameBegin(HWND hWnd)
+{
+	//initialize Game Data
+	Box b;
+
+	for (int i = 0; i < Game::nObjectAmount; i++)
+	{
+		if (Game::GameObjects[i] != nullptr)
+			Game::GameObjects[i]->Start();
+	}
+
+	while (Running)
+	{
+		GameUpdate(hWnd);
+	}
+}
+
+void Engine::GameUpdate(HWND hWnd)
+{
+	//call WM_PAINT
+	InvalidateRect(hWnd, NULL, FALSE);
+
+	for (int i = 0; i < Game::nObjectAmount; i++)
+	{
+		if (Game::GameObjects[i] != nullptr)
+			Game::GameObjects[i]->LateLoop();
+	}
 }

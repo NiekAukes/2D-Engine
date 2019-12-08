@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="2D Engine.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="VectorUtil.h" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2D Engine.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
