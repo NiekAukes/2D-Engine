@@ -10,7 +10,7 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::RenderNow(HWND hWnd)
+void Renderer::SetupRender(HWND hWnd)
 {
 	HRESULT hr = S_OK;
 	if (pRenderTarget != NULL)

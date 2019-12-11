@@ -137,7 +137,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return -1;
 		}
 
-		rWindowRender.RenderNow(hWnd);
+		rWindowRender.SetupRender(hWnd);
 	}
     case WM_COMMAND:
 	{
@@ -158,7 +158,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
 	{
-		rWindowRender.RenderNow(hWnd);
+		rWindowRender.SetupRender(hWnd);
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
 		rWindowRender.pRenderTarget->BeginDraw();
