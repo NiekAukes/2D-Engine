@@ -21,10 +21,13 @@ union DrawInfo
 	Vector2* boxdimensions;
 	Vector2* Polygons;
 	CircleData circledata;
+	DrawInfo() {}
+	~DrawInfo() {}
 	//for future expansion, such as circles, triangles and other
 };
 enum RenderType
 {
+	Indef,
 	BoxRender,
 	PolygonRender,
 	CircleRender
@@ -33,8 +36,10 @@ struct DrawRegist
 {
 	RenderType type;
 	DrawInfo data;
+	Color color
 	int nAmount;
-
+	DrawRegist() {}
+	~DrawRegist() {}
 };
 class IRenderer {
 
@@ -46,6 +51,9 @@ public:
 	ID2D1Factory* pFactory = NULL;
 	ID2D1HwndRenderTarget* pRenderTarget = NULL;
 	D2D1_ELLIPSE ellipse;
+
+	DrawRegist* RegistRenders[2000];
+
 	Renderer();
 	~Renderer();
 

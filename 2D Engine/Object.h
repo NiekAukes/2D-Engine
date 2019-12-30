@@ -17,11 +17,13 @@ private:
 class GameObject
 {
 public:
-	static GameObject* GameObjects;
+	static GameObject* GameObjects[];
+	static int nObjAmount;
 	Component* Components[20];
 	GameObject* Children[20];
 	GameObject();
 	~GameObject();
+	void PrivateStart();
 	void PrivateUpdate();
 
 	virtual void Start() {}

@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "2D Engine.h"
+#include "GameInit.h"
 
 #define MAX_LOADSTRING 100
 
@@ -105,8 +106,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   GameInit::BeginGame();
+
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+   GameInit::BeginGame();
 
    return TRUE;
 }
@@ -158,6 +163,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
 	{
+		GameInit::UpdateGame();
 		rWindowRender.SetupRender(hWnd);
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);

@@ -1,6 +1,5 @@
 #include "Renderer.h"
 
-
 Renderer::Renderer()
 {
 
@@ -13,7 +12,7 @@ Renderer::~Renderer()
 void Renderer::SetupRender(HWND hWnd)
 {
 	HRESULT hr = S_OK;
-	if (pRenderTarget != NULL)
+	if (pRenderTarget == NULL)
 	{
 		RECT rc;
 		GetClientRect(hWnd, &rc);
@@ -43,4 +42,28 @@ void Renderer::SetupRender(HWND hWnd)
 			}
 		}
 	}
+}
+
+void Renderer::Distribute(HWND hWnd, PAINTSTRUCT ps, HDC hdc)
+{
+}
+
+void Renderer::DrawBox(Vector2 min, Vector2 max, Color color)
+{
+	for (int i = 0; i < 2000; i++)
+	{
+		if (RegistRenders[i]->type == Indef)
+		{
+			RegistRenders[i]->type = BoxRender;
+			RegistRenders[i]->data.boxdimensions = new Vector2[2];
+		}
+	}
+}
+
+void Renderer::DrawPolygon(Vector2* polygons, int ArrayLength, Color color)
+{
+}
+
+void Renderer::DrawCircle(Vector2 Center, float Radius, Color color)
+{
 }
