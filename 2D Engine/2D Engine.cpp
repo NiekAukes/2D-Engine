@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "2D Engine.h"
 #include "GameInit.h"
+#include "Util.h"
+#include <sstream>
 
 #define MAX_LOADSTRING 100
 
@@ -42,6 +44,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY2DENGINE));
 
     MSG msg;
+	GameInit::BeginGame();
 
     // Main message loop:
     while (GetMessage(&msg, nullptr, 0, 0))
@@ -106,12 +109,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
-   GameInit::BeginGame();
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   GameInit::BeginGame();
 
    return TRUE;
 }
@@ -127,22 +128,23 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-Renderer rWindowRender;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
 	case WM_CREATE:
 	{
+		Renderer::rWindowRender = new Renderer();
 		HRESULT hr = D2D1CreateFactory(
 			D2D1_FACTORY_TYPE::D2D1_FACTORY_TYPE_MULTI_THREADED,
-			&rWindowRender.pFactory);
+			&(Renderer::rWindowRender->pFactory));
 
 		if (FAILED(hr)) {
 			return -1;
 		}
 
-		rWindowRender.SetupRender(hWnd);
+		Renderer::rWindowRender->SetupRender(hWnd);
 	}
     case WM_COMMAND:
 	{
@@ -164,18 +166,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
 	{
 		GameInit::UpdateGame();
-		rWindowRender.SetupRender(hWnd);
+		Renderer::rWindowRender->SetupRender(hWnd);
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
-		rWindowRender.pRenderTarget->BeginDraw();
+		Renderer::rWindowRender->pRenderTarget->BeginDraw();
+		Renderer::rWindowRender->Distribute(hWnd, ps, hdc);
 
-		rWindowRender.pRenderTarget->Clear();
-		const D2D1_RECT_F rc{200, 200, 300, 300};
-		
-		rWindowRender.pRenderTarget->FillRectangle(rc, rWindowRender.pBrush);
-		rWindowRender.pRenderTarget->EndDraw();
+		Renderer::rWindowRender->pRenderTarget->EndDraw();
 		// TODO: Add any drawing code that uses hdc here...
 		EndPaint(hWnd, &ps);
+		InvalidateRect(hWnd, NULL, NULL);
 	}
         break;
     case WM_DESTROY:

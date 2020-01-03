@@ -1,60 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\NonEngine">
+    <Filter Include="Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Files\Base">
+      <UniqueIdentifier>{7ecbae52-ea42-4aa1-9eff-e1b827683b5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Objects">
+      <UniqueIdentifier>{d695acd8-fc2d-4774-a87a-75be74b5087b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Base\NonEngine">
       <UniqueIdentifier>{489a69d7-f62f-4adf-9c2a-6b125c367f50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Base\Game">
+      <UniqueIdentifier>{c5fdc320-033b-4bd8-a733-3875afdbb3a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Base\Util">
+      <UniqueIdentifier>{c92052ab-ee7a-4f56-a634-d2c234697b4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Base\Rendering">
+      <UniqueIdentifier>{3575f721-0037-462d-bd72-20c9c596aaef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Objects\Box">
+      <UniqueIdentifier>{cac7297b-2204-499f-9ecc-99de0bbe334f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Physics">
+      <UniqueIdentifier>{04b3f82b-5599-4d7a-aec6-07982227d915}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="2D Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Header Files\NonEngine</Filter>
+      <Filter>Files\Base\NonEngine</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Header Files\NonEngine</Filter>
+      <Filter>Files\Base\NonEngine</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files\NonEngine</Filter>
+      <Filter>Files\Base\NonEngine</Filter>
     </ClInclude>
-    <ClInclude Include="VectorUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="2D Engine.h">
+      <Filter>Files\Base\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameInit.h">
-      <Filter>Header Files</Filter>
+      <Filter>Files\Base\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Files\Base\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Files\Base\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Files\Base\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Files\Objects\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollision.h">
+      <Filter>Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2D Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Files\Base\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameInit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Files\Base\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Files\Base\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Files\Base\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Files\Objects\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollision.cpp">
+      <Filter>Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
