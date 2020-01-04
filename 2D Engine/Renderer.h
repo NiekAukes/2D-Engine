@@ -103,6 +103,4 @@ public:
 private:
 
 };
-
-
 #endif // !RENDERER_H

@@ -17,11 +17,6 @@ GameObject::GameObject()
 		}
 	}
 }
-
-GameObject::~GameObject()
-{
-}
-
 void GameObject::PrivateStart()
 {
 	for (unsigned int i = 0; i < Components.size(); i++) //induces start on components
@@ -59,15 +54,6 @@ void GameObject::PrivateLateUpdate()
 			Components[i]->LateLoop();
 		}
 	}
-}
-
-
-Component::Component()
-{
-}
-
-Component::~Component()
-{
 }
 
 std::vector<GameObject*> GameObject::GameObjects(1000);

@@ -1,45 +1,38 @@
 #include "Renderer.h"
-
 int Renderer::nScreenHeight = 1080;
 int Renderer::nScreenWidth = 1920;
 Renderer* Renderer::rWindowRender = nullptr;
 Renderer::Renderer()
-{
+	{
 
-}
-
-Renderer::~Renderer()
-{
-}
+	}
 
 void Renderer::SetupRender(HWND hWnd)
 {
 	HRESULT hr = S_OK;
 	if (pRenderTarget == NULL)
 	{
-		RECT rc;
-		GetClientRect(hWnd, &rc);
-
-		D2D1_SIZE_U size = D2D1::SizeU(rc.right, rc.bottom);
-
-		hr = pFactory->CreateHwndRenderTarget(
-			D2D1::RenderTargetProperties(),
-			D2D1::HwndRenderTargetProperties(hWnd, size),
-			&pRenderTarget);
-
 		if (SUCCEEDED(hr))
 		{
 			RECT rect;
 			GetClientRect(hWnd, &rect);
 			nScreenWidth = rect.right;
 			nScreenHeight = rect.bottom;
+			D2D1_SIZE_U size = D2D1::SizeU(rect.right, rect.bottom);
 
 			const D2D1_COLOR_F color = D2D1::ColorF(1.0f, 1.0f, 0);
 			hr = pRenderTarget->CreateSolidColorBrush(color, &pBrush);
+			hr = pFactory->CreateHwndRenderTarget(
+				D2D1::RenderTargetProperties(),
+				D2D1::HwndRenderTargetProperties(hWnd, size),
+				&pRenderTarget);
 
 			if (SUCCEEDED(hr))
 			{
-				if (pRenderTarget != NULL)
+				const D2D1_COLOR_F color = D2D1::ColorF(1.0f, 1.0f, 0);
+				hr = pRenderTarget->CreateSolidColorBrush(color, &pBrush);
+
+				if (SUCCEEDED(hr))
 				{
 					D2D1_SIZE_F size = pRenderTarget->GetSize();
 					const float x = size.width / 2;
@@ -49,10 +42,10 @@ void Renderer::SetupRender(HWND hWnd)
 
 				//create Directx 10 utils
 				UINT creationFlags = D3D10_CREATE_DEVICE_BGRA_SUPPORT;
-				
+
 				hr = D3D10CreateDevice(nullptr, D3D10_DRIVER_TYPE_HARDWARE, 0,
 					creationFlags, D3D10_SDK_VERSION, &p3dDevice);
-				
+
 				if (SUCCEEDED(hr))
 				{
 					DXGI_SWAP_CHAIN_DESC scd;
@@ -77,6 +70,7 @@ void Renderer::SetupRender(HWND hWnd)
 			}
 		}
 	}
+	
 }
 
 void Renderer::Distribute(HWND hWnd, PAINTSTRUCT ps, HDC hdc)
@@ -160,6 +154,11 @@ void Renderer::DrawBox(Vector2 min, Vector2 max, Color color)
 			RegistRenders[i]->color = color;
 			break;
 		}
+		else
+		{
+
+		}
+		return hr;
 	}
 }
 
