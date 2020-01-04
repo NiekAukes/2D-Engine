@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="2D Engine.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="BoxCollision.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameInit.h" />
     <ClInclude Include="Physics.h" />

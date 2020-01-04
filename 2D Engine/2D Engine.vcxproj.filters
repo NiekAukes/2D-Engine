@@ -74,9 +74,6 @@
     <ClInclude Include="Polygon.h">
       <Filter>Files\Objects\Polygon</Filter>
     </ClInclude>
-    <ClInclude Include="Box.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2D Engine.cpp">
@@ -102,9 +99,6 @@
     </ClCompile>
     <ClCompile Include="Polygon.cpp">
       <Filter>Files\Objects\Polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="Box.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

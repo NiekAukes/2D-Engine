@@ -56,13 +56,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-
-
     return (int) msg.wParam;
 }
 
 
-std::thread* GameThread = nullptr;
+
 //
 //  FUNCTION: MyRegisterClass()
 //
@@ -111,7 +109,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+
    ShowWindow(hWnd, nCmdShow);
+   UpdateWindow(hWnd);
 
 
    return TRUE;
@@ -128,6 +128,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -138,9 +139,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		HRESULT hr = D2D1CreateFactory(
 			D2D1_FACTORY_TYPE::D2D1_FACTORY_TYPE_MULTI_THREADED,
 			&(Renderer::rWindowRender->pFactory));
+
 		if (FAILED(hr)) {
 			return -1;
 		}
+
 		Renderer::rWindowRender->SetupRender(hWnd);
 	}
     case WM_COMMAND:
@@ -203,6 +206,3 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     }
     return (INT_PTR)FALSE;
 }
-#pragma endregion
-
-// Globals:
