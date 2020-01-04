@@ -45,7 +45,34 @@ void Renderer::SetupRender(HWND hWnd)
 					const float x = size.width / 2;
 					const float y = size.height / 2;
 					const float radius = min(x, y);
-					ellipse = D2D1::Ellipse(D2D1::Point2F(x, y), radius, radius);
+				}
+
+				//create Directx 10 utils
+				UINT creationFlags = D3D10_CREATE_DEVICE_BGRA_SUPPORT;
+				
+				hr = D3D10CreateDevice(nullptr, D3D10_DRIVER_TYPE_HARDWARE, 0,
+					creationFlags, D3D10_SDK_VERSION, &p3dDevice);
+				
+				if (SUCCEEDED(hr))
+				{
+					DXGI_SWAP_CHAIN_DESC scd;
+					scd.BufferDesc.Width = 0;													// width of the back buffer
+					scd.BufferDesc.Height = 0;													// height
+					scd.BufferDesc.RefreshRate.Numerator = 0;									// refresh rate: 0 -> do not care
+					scd.BufferDesc.RefreshRate.Denominator = 1;
+					scd.BufferDesc.Format = DXGI_FORMAT::DXGI_FORMAT_420_OPAQUE;							// the color palette to use								
+					scd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;		// unspecified scan line ordering
+					scd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;						// unspecified scaling
+					scd.SampleDesc.Count = 1;													// disable msaa
+					scd.SampleDesc.Quality = 0;
+					scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;							// use back buffer as render target
+					scd.BufferCount = 3;														// the number of buffers in the swap chain (including the front buffer)
+					scd.OutputWindow = hWnd;													// set the main window as output target
+					scd.Windowed = true;														// windowed, not fullscreen$
+					scd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;								// flip mode and discared buffer after presentation
+					scd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;							// allow mode switching
+
+
 				}
 			}
 		}
@@ -84,6 +111,30 @@ void Renderer::Distribute(HWND hWnd, PAINTSTRUCT ps, HDC hdc)
 				}
 				
 			}
+			if (RegistRenders[i]->type == RenderType::PolygonRender)
+			{
+				ID2D1GeometrySink* pSink = nullptr;
+				ID2D1PathGeometry* pPathGeo = nullptr;
+
+				HRESULT hr = S_OK;
+				hr = pFactory->CreatePathGeometry(&pPathGeo);
+				if (SUCCEEDED(hr))
+				{
+					// Write to the path geometry using the geometry sink.
+					hr = pPathGeo->Open(&pSink);
+					if (SUCCEEDED(hr))
+					{
+						pSink->BeginFigure((RegistRenders[i]->data.Polygons)->ToRenderPoint(), D2D1_FIGURE_BEGIN_FILLED);
+						pSink->AddLines(
+							Vector2::ToRenderPoints(RegistRenders[i]->data.Polygons, RegistRenders[i]->nAmount),
+							RegistRenders[i]->nAmount);
+						//Adds all lines using Vector2's
+						pSink->EndFigure(D2D1_FIGURE_END_CLOSED);
+						hr = pSink->Close();
+					}
+					SafeRelease(&pSink);
+				}
+			}
 			
 		}
 		delete(RegistRenders[i]);
@@ -114,6 +165,17 @@ void Renderer::DrawBox(Vector2 min, Vector2 max, Color color)
 
 void Renderer::DrawPolygon(Vector2* polygons, int ArrayLength, Color color)
 {
+	for (int i = 0; i < 2000; i++)
+	{
+		if (RegistRenders[i] == nullptr)
+		{
+			RegistRenders[i] = new DrawRegist();
+			RegistRenders[i]->type = RenderType::PolygonRender;
+			RegistRenders[i]->data.Polygons = polygons;
+			RegistRenders[i]->color = color;
+			break;
+		}
+	}
 }
 
 void Renderer::DrawCircle(Vector2 Center, float Radius, Color color)

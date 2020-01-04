@@ -13,6 +13,23 @@ public:
 	}
 	~Vector2() {}
 
+	D2D1_POINT_2F ToRenderPoint()
+	{
+		D2D1_POINT_2F out;
+		out.x = this->x;
+		out.y = this->y;
+		return out;
+	}
+	static D2D1_POINT_2F* ToRenderPoints(Vector2* points, int num)
+	{
+		D2D1_POINT_2F* out = new D2D1_POINT_2F[num];
+		for (int i = 0; i < num; i++)
+		{
+			*(out + i) = (points + i)->ToRenderPoint();
+		}
+		return out;
+	}
+
 	Vector2 operator+ (Vector2 const& other)
 	{
 		Vector2 res;

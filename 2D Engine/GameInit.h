@@ -47,6 +47,7 @@ public:
 				GameObject::GameObjects[i]->PrivateStart(); //Do PrivateStart of Gameobjects (for components)
 			}
 		}
+		
 	}
 	static void UpdateGame() // Called every frame
 	{

@@ -10,6 +10,8 @@
 #include <tchar.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
+#include <windows.graphics.directx.direct3d11.h>
+#include <windows.graphics.directx.direct3d11.interop.h>
 #include <dwrite.h>
 #include <wincodec.h>
 #include "Util.h"
@@ -84,7 +86,8 @@ public:
 	ID2D1SolidColorBrush* pBrush = NULL;
 	ID2D1Factory* pFactory = NULL;
 	ID2D1HwndRenderTarget* pRenderTarget = NULL;
-	D2D1_ELLIPSE ellipse;
+	ID3D10Device* p3dDevice = nullptr;
+	IDXGIFactory* pDxgiFactory = nullptr;
 
 	DrawRegist* RegistRenders[2000];
 
