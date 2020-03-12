@@ -154,10 +154,13 @@
     <ClInclude Include="2D Engine.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="BoxCollision.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="EllipseCollision.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameInit.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="Polygon.h" />
+    <ClInclude Include="PolygonCollision.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Object.h" />
@@ -168,10 +171,13 @@
     <ClCompile Include="2D Engine.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="BoxCollision.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="EllipseCollision.cpp" />
     <ClCompile Include="GameInit.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="Polygon.cpp" />
+    <ClCompile Include="PolygonCollision.cpp" />
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>

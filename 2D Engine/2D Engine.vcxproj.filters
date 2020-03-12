@@ -36,6 +36,9 @@
     <Filter Include="Files\Objects\Polygon">
       <UniqueIdentifier>{a8eb63a6-be8a-44c7-8a67-b0d3063eda97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Objects\Circle">
+      <UniqueIdentifier>{6746b3bb-b991-4f81-8723-62708fa4b82e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -74,6 +77,15 @@
     <ClInclude Include="Polygon.h">
       <Filter>Files\Objects\Polygon</Filter>
     </ClInclude>
+    <ClInclude Include="PolygonCollision.h">
+      <Filter>Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>Files\Objects\Circle</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipseCollision.h">
+      <Filter>Files\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2D Engine.cpp">
@@ -99,6 +111,15 @@
     </ClCompile>
     <ClCompile Include="Polygon.cpp">
       <Filter>Files\Objects\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonCollision.cpp">
+      <Filter>Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Files\Objects\Circle</Filter>
+    </ClCompile>
+    <ClCompile Include="EllipseCollision.cpp">
+      <Filter>Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
